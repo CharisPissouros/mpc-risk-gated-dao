@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public Sepolia contract addresses flagged as false positives by the generic-api-key rule (variable name contains 'TOKEN')."
+regexes = [
+  '''^0x[0-9a-fA-F]{40}$''',
+  '''TOKEN_VOTING_ADDRESS\s*=\s*"0x[0-9a-fA-F]{40}"'''
+]
