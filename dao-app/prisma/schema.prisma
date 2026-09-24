@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model User {
+  id      Int     @id @default(autoincrement())
+  walletAddress     String        @db.Char(42)      @map("wallet_address")
+  email     String
+  capital     Decimal     @db.Decimal(18, 8)
+  riskLevel     Int     @map("risk_level")
+  credit 	Int 	@map("credit")
+  sessions      Sessions[]
+  proposals     Proposal[]
+  votes         Vote[]  
+
+  @@unique([walletAddress])
+  @@unique([email])
+  @@map("users")
+  }
+
+
+model Sessions{
+  id      Int     @id @default(autoincrement())
+  userId Int      @map("user_id")
+  user      User      @relation(fields : [userId] , references : [id] , onDelete : Cascade)
+  tokenHash     String      @unique     @db.VarChar(255)      @map("token_hash")
+  expires     DateTime      @db.Timestamptz     @map("expires_at")
+
+  @@map("sessions")
+}
+
+
+enum ProposalStatus{
+	pending
+	approved
+	rejected
+}
+
+
+
+model Proposal{
+  id	Int	@id	@default(autoincrement())
+  creatorId	Int	@map("creator_id")	
+  creator	User		@relation(fields : [creatorId] , references : [id] , onDelete : Restrict)
+  title		String		@db.VarChar(255)
+  description   String?		@db.Text
+  createdAt	DateTime	@map("created_at") 	@db.Timestamptz		@default(now())
+  status	ProposalStatus	@default(pending)	
+  votes		Vote[]
+  result	Result?
+
+
+@@map("proposals")
+}
+
+enum VoteNames{
+	yes
+	no
+}
+
+
+model Vote{
+  id	Int	@id	@default(autoincrement())
+  proposalId	Int	@map("proposal_id")	
+  proposal	Proposal	@relation(fields : [proposalId] , references : [id] , onDelete : Cascade)
+  userId	Int	@map("user_id")
+  user		User	@relation(fields : [userId] , references : [id] , onDelete : Cascade)
+  voteChoice	VoteNames	@map("vote_choice")  
+  
+
+  @@map("votes")
+  @@unique([proposalId , userId])
+}
+
+
+model Result{
+  id	Int	@id	@default(autoincrement())
+  proposalId	Int	@map("proposal_id")	@unique
+  proposal	Proposal	@relation(fields : [proposalId] , references : [id] , onDelete : Cascade)
+  finalScore	Int?	@map("final_score")
+  approved	Boolean
+  createdAt	DateTime	@map("created_at")	@db.Timestamptz		@default(now())
+
+
+@@map("results")
+}
+
+
+model Nonce{
+  id	Int	@id	@default(autoincrement())
+  walletAddress	  String	@map("wallet_address")	@db.Char(42)
+  value		String		@unique		@db.VarChar(64)
+  used		Boolean		@default(false)
+  expiresAt	DateTime	@map("expires_at")	@db.Timestamptz
+  createdAt	DateTime	@map("created_at")	@db.Timestamptz		@default(now())	
+
+@@map("nonces")
+
+}
+

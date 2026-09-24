@@ -1,0 +1,39 @@
+{
+  "name": "mpc-risk-gated-dao",
+  "version": "0.1.0",
+  "private": true,
+  "author" : "Pissouros Charis",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@aragon/token-voting-plugin-artifacts": "^1.4.2",
+    "@prisma/client": "^6.19.3",
+    "@types/node": "25.9.1",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "autoprefixer": "10.5.0",
+    "dotenv": "^18.0.1",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "ethers": "^6.16.0",
+    "iron-session": "^8.0.4",
+    "next": "16.2.6",
+    "postcss": "8.5.15",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "siwe": "^3.0.0",
+    "tailwindcss": "4.3.0",
+    "typescript": "6.0.3",
+    "viem": "^2.55.10",
+    "wagmi": "^3.7.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "prisma": "^6.19.3"
+  }
+}
