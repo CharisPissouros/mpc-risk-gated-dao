@@ -19,7 +19,7 @@
 - *Συγχωνευμένοι ρόλοι oracle/proposer.* Το oracle κατέχει και το ORACLE_PERMISSION_ID και το CREATE_PROPOSAL_PERMISSION_ID στο plugin.
 - *Αυτοδηλούμενα inputs.* Το credit score το εισάγει ο ίδιος ο χρήστης· δεν υπάρχει πιστοποίηση από τράπεζα ή τρίτο μέρος.
 - *Χωρίς Prisma migrations.* Έχει γίνει commit μόνο το schema.prisma`· η βάση στήνεται με prisma db push`.
-- *Το MP-SPDZ δεν περιλαμβάνεται.* Είναι καρφωμένο στο commit 7b5d9ff5891a90fe071fae8239556964621d58b4`· δες το mpc/README.md`.
+- *Το MP-SPDZ δεν περιλαμβάνεται.*`· δες το mpc/README.md`.
 
 ## Setup Tested with Node v20.20.0 and npm 10.8.2. Each component installs separately. ### smart-contracts/ (Hardhat) 
 cd smart-contracts npm ci cp .env.example .env # then edit .env npx hardhat compile 
@@ -36,3 +36,6 @@ Requires a running PostgreSQL database (create it first and point DATABASE_URL t
 ## Άδεια
 
 MIT, δες το [LICENSE](./LICENSE). Ισχύει για τον πρωτότυπο κώδικα του repository, εξαιρουμένου του αρχείου τρίτων που αναφέρεται παραπάνω.
+
+See [SECURITY_NOTES.md](./SECURITY_NOTES.md) for a detailed
+breakdown of security design decisions and known issues.
