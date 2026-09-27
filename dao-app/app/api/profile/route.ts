@@ -26,7 +26,7 @@ const {investmentAmount, risk} = await req.json();
 
     if(isNaN(capitalNumber)||(capitalNumber < 0 || capitalNumber > 10000)){
         return NextResponse.json({error : "Invalid investment amount"}, {status : 400});
-    }else if (risk < 1 || risk > 100) {
+    }else if (isNaN(risk) || risk < 1 || risk > 100) {
         return NextResponse.json({error : "Invalid risk level"}, {status : 400});
     }
 
