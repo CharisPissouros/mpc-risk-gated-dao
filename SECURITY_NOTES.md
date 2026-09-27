@@ -1,4 +1,4 @@
-# Security Notes — Draft για README "Known Limitations / Design Decisions"
+# Security Notes — "Known Limitations / Design Decisions"
 
 ---
 
