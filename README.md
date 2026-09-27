@@ -33,6 +33,100 @@ Requires a running PostgreSQL database (create it first and point DATABASE_URL t
 
 Το IMajorityVoting.sol έχει γίνει vendored από το [token-voting-plugin](https://github.com/aragon/token-voting-plugin) της Aragon, επειδή το npm package δεν περιλαμβάνει Solidity sources. Η μόνη τροποποίηση είναι η inline δήλωση του enum VoteOption. Παραμένει υπό την αρχική του άδεια (δες το SPDX header του αρχείου) και όχι υπό την MIT άδεια του repository.
 
+## Repo Structure
+mpc-risk-gated-dao/
+├── .gitignore
+├── .gitleaks.toml
+├── LICENSE
+├── README.md
+├── SECURITY_NOTES.md
+│
+├── smart-contracts/
+│   ├── .env.example
+│   ├── hardhat.config.ts
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── tsconfig.json
+│   ├── contracts/
+│   │   ├── CustomPlugin.sol
+│   │   ├── CustomPluginSetup.sol
+│   │   ├── interfaces/
+│   │   │   └── aragon/
+│   │   │       └── IMajorityVoting.sol
+│   │   └── vendor/
+│   │       └── ImportPSP.sol
+│   └── scripts/
+│       ├── applyInstallation.ts
+│       ├── checkPermissions.ts
+│       ├── deployPluginRepo.ts
+│       ├── grantViaProposal.ts
+│       ├── readInstallEvents.ts
+│       ├── testSubmitRiskData.ts
+│       └── verifyPlugin.ts
+│
+├── mpc/
+│   ├── Custom_MPC_protocol.mpc
+│   └── README.md
+│
+└── dao-app/
+    ├── .env.example
+    ├── .eslintrc.json
+    ├── middleware.ts
+    ├── next.config.js
+    ├── package.json
+    ├── package-lock.json
+    ├── postcss.config.js
+    ├── prisma.config.ts
+    ├── tailwind.config.ts
+    ├── tsconfig.json
+    ├── prisma/
+    │   └── schema.prisma
+    ├── scripts/
+    │   ├── checkIndexes.ts
+    │   ├── seedTestUsers.ts
+    │   └── mpc-bridge/
+    │       ├── child.ts
+    │       └── orchestrator.ts
+    └── app/
+        ├── favicon.ico
+        ├── globals.css
+        ├── layout.tsx
+        ├── page.tsx
+        ├── Dashboard/
+        │   └── page.tsx
+        ├── Proposals/
+        │   └── page.tsx
+        ├── login/
+        │   └── page.tsx
+        ├── profile/
+        │   └── page.tsx
+        ├── signup/
+        │   └── page.tsx
+        ├── proposal/
+        │   ├── create/
+        │   │   └── page.tsx
+        │   └── voteProposal/
+        │       └── page.tsx
+        ├── api/
+        │   ├── auth/
+        │   │   └── nonce/
+        │   │       └── route.ts
+        │   ├── login/
+        │   │   └── route.ts
+        │   ├── profile/
+        │   │   └── route.ts
+        │   ├── proposal/
+        │   │   └── route.ts
+        │   └── signup/
+        │       └── route.ts
+        └── lib/
+            ├── aragon-client.ts
+            ├── auth.ts
+            ├── db.ts
+            ├── sessions.ts
+            └── contracts/
+                └── customPluginAbi.ts
+
 ## Άδεια
 
 MIT, δες το [LICENSE](./LICENSE). Ισχύει για τον πρωτότυπο κώδικα του repository, εξαιρουμένου του αρχείου τρίτων που αναφέρεται παραπάνω.
