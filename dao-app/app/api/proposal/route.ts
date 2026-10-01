@@ -4,6 +4,12 @@ import { getReadOnlyTokenVotingClient } from "@/app/lib/aragon-client";
 function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+//json cant deserialize BigInt so : 
+function serializeBigInts(obj: any): any {
+    return JSON.parse(JSON.stringify(obj, (_, value) =>
+        typeof value === "bigint" ? value.toString() : value
+    ));
+}
 
 async function getProposalCreatedEvents(contract: any, fromBlock: number, toBlock: number) {
     const CHUNK_SIZE = 10;
@@ -27,7 +33,7 @@ export async function GET(req: NextRequest) {
     try {
         if (id) {
             const proposal = await contract.getProposal(id);
-            return NextResponse.json(proposal);
+            return NextResponse.json(serializeBigInts(proposal));
         }
 
         const currentBlock = await contract.runner!.provider!.getBlockNumber();
@@ -43,7 +49,7 @@ export async function GET(req: NextRequest) {
             })
         );
 
-        return NextResponse.json(proposals);
+        return NextResponse.json(serializeBigInts(proposals));
 
     } catch (error) {
         return NextResponse.json({ error: (error as Error).message }, { status: 500 });

@@ -1,12 +1,13 @@
 import {NextResponse ,NextRequest} from "next/server";
-import {verifyMessage} from "ethers";
+import {verifyMessage ,JsonRpcProvider , formatEther} from "ethers";
 import {prisma} from "@/app/lib/db";
 import {createSession} from "@/app/lib/sessions";
 
 
+
 export async function POST(req: NextRequest) {
 
-   const {email,walletAddress,investmentAmount,risk,Credit , message , signature} = await req.json();
+   const {email,walletAddress,investmentAmount,risk,Credit , message , signature,balance} = await req.json();
 
     const recoveredAddress =verifyMessage(message ,signature);
 
@@ -15,11 +16,20 @@ export async function POST(req: NextRequest) {
     }
 
     const capitalNumber = Number(investmentAmount);
+    const provider = new JsonRpcProvider(process.env.SEPOLIA_RPC_URL);
+    const actualBalance = await provider.getBalance(walletAddress);
+    const actualBalanceEth = Number(formatEther(actualBalance));
     
     if (isNaN(capitalNumber)) {
     return NextResponse.json({error: "Invalid investment amount"}, {status: 400});
     }
-
+    if (capitalNumber > actualBalanceEth){
+        return NextResponse.json({error : "investment ammount higher than balance "}, {status : 400});
+    }
+   
+    if ((Credit < 0 || Credit > 100) || (risk <0 || risk > 100)){
+        return NextResponse.json({error : "invalid risk or credit "} , {status : 400});
+    }
 
     try{
       const user = await prisma.user.create({

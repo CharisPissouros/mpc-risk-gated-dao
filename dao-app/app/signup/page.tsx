@@ -49,7 +49,8 @@ export default function SignupPage() {
     console.log("Network switch: succeeded or already correct");
 } catch (switchError: any) {
     console.error("Network switch FAILED:", switchError.message, switchError.code);
-}
+    return;
+  }
 
 
       const provider = new BrowserProvider(window.ethereum);
@@ -93,6 +94,7 @@ export default function SignupPage() {
           walletBalance: balanceInEth,
           message,
           signature,
+          balance,
         }),
       });
 
