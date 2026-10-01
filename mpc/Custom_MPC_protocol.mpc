@@ -6,25 +6,25 @@ MAX_CAPITAL = 10000
 Health_threshold = 10 
 BIT_LENGTH = 24 
 
-risk0 = sint.get_input_from(0)                                           #περνουμε το ρισκο που ειναι διατεθημενος ο χρηστης να παρει
-capital0 = sint.get_input_from(0)                                        #περνουμε το διαθεσιμο κεφαλαιο 
-capital_score0 = capital0.int_div(sint(MAX_CAPITAL) , BIT_LENGTH) *100   #φερνουμε το capital σε μια κλιμακα 0-100 για να ειναι σωστα υπολογισιμο με τα αλλα 
-credit0 = sint.get_input_from(0)                                         #περνουμε το cretid score του απο την τραπεζα του (Για τους σκοπους της διπλωματικης μας το δινει ο ιδιος ο χρηστης)
-capacity0 = (credit0 + capital_score0).int_div(sint(2) ,BIT_LENGTH)      #υπολογιζουμε την ικανοτητα απορροφισης ρισκου 
-margin0 = capacity0 - risk0                                              #υπολογιζουμε το περιθωριο ασφαλειας 
+risk0 = sint.get_input_from(0)                                                   #περνουμε το ρισκο που ειναι διατεθημενος ο χρηστης να παρει
+capital0 = sint.get_input_from(0)                                                #περνουμε το διαθεσιμο κεφαλαιο 
+capital_score0 = (capital0 * 100).int_div(sint(MAX_CAPITAL) , BIT_LENGTH)        #φερνουμε το capital σε μια κλιμακα 0-100 για να ειναι σωστα υπολογισιμο με τα αλλα 
+credit0 = sint.get_input_from(0)                                                 #περνουμε το cretid score του απο την τραπεζα του (Για τους σκοπους της διπλωματικης μας το δινει ο ιδιος ο χρηστης)
+capacity0 = (credit0 + capital_score0).int_div(sint(2) ,BIT_LENGTH)              #υπολογιζουμε την ικανοτητα απορροφισης ρισκου 
+margin0 = capacity0 - risk0                                                      #υπολογιζουμε το περιθωριο ασφαλειας 
 
 #market0 ΑΝ προλαβω θα προσθεσω και το market risk 
 
 risk1 = sint.get_input_from(1)
 capital1 = sint.get_input_from(1)
-capital_score1 = capital1.int_div(sint(MAX_CAPITAL) , BIT_LENGTH) *100 
+capital_score1 = (capital1  * 100).int_div(sint(MAX_CAPITAL) , BIT_LENGTH)
 credit1 = sint.get_input_from(1)
 capacity1 = (credit1 + capital_score1).int_div(sint(2) ,BIT_LENGTH) 
 margin1 = capacity1 - risk1
 
 risk2 = sint.get_input_from(2)
 capital2 = sint.get_input_from(2)
-capital_score2 = capital2.int_div(sint(MAX_CAPITAL) , BIT_LENGTH) *100 
+capital_score2 = (capital2 * 100).int_div(sint(MAX_CAPITAL) , BIT_LENGTH) 
 credit2 =sint.get_input_from(2)
 capacity2 = (credit2 + capital_score2).int_div(sint(2) ,BIT_LENGTH)     
 margin2 = capacity2 - risk2
